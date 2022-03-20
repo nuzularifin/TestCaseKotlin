@@ -22,19 +22,6 @@ class UpdateProductUseCase @Inject constructor(
             } else {
                 val dataList = productRepository.getProductList()
                 emit(Resource.Success(dataList))
-//                emit(
-//                    Resource.Success(
-//                        Product(
-//                            id.toString().toDouble().toInt(),
-//                            sku.toString(),
-//                            name.toString(),
-//                            Integer.parseInt(qty.toString()),
-//                            Integer.parseInt(price.toString()),
-//                            unit.toString(),
-//                            Integer.parseInt(status.toString())
-//                        )
-//                    )
-//                )
             }
         } catch (e: HttpException) {
             emit(Resource.Error(e.localizedMessage ?: "An expected error occurred"))

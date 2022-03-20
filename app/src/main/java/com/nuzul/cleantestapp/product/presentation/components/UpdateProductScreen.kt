@@ -16,6 +16,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.nuzul.cleantestapp.core.Screen
 import com.nuzul.cleantestapp.product.domain.model.Product
 import com.nuzul.cleantestapp.product.presentation.ProductViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -50,7 +51,7 @@ fun UpdateProductScreen(
             when (event) {
                 is ProductViewModel.NavEvent.Navigate
                 -> {
-                    navController.navigateUp()
+                   navController.popBackStack()
                 }
             }
         }

@@ -46,6 +46,11 @@ fun DashboardProductScreen(
             }
         }
     }
+    LaunchedEffect(key1 = true) {
+        viewModel.refreshFlow.run {
+            viewModel.getProductList()
+        }
+    }
 
     Scaffold(
         scaffoldState = scaffoldState,

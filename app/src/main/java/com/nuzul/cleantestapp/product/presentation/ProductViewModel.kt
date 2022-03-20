@@ -39,8 +39,11 @@ class ProductViewModel @Inject constructor(
     private val _searchQuery = mutableStateOf("")
     val searchQuery: State<String> = _searchQuery
 
-    private val _sharedFlow = MutableSharedFlow<NavEvent>(extraBufferCapacity = 1)
+    private val _sharedFlow = MutableSharedFlow<NavEvent>()
     val sharedFlow = _sharedFlow.asSharedFlow()
+
+    private val _refreshFlow = MutableSharedFlow<SuccessUpdate>()
+    val refreshFlow = _refreshFlow.asSharedFlow()
 
     private var searchJob: Job? = null
 
@@ -48,7 +51,7 @@ class ProductViewModel @Inject constructor(
         getProductList()
     }
 
-    private fun getProductList() {
+    fun getProductList() {
         getProductListUseCase().onEach { result ->
             when (result) {
                 is Resource.Success -> {
@@ -85,6 +88,9 @@ class ProductViewModel @Inject constructor(
                     _sharedFlow.emit(
                         NavEvent.Navigate(Screen.DashboardProductScreen.route)
                     )
+                    _refreshFlow.emit(
+                        SuccessUpdate.Refresh(Screen.DashboardProductScreen.route)
+                    )
                 }
 
                 is Resource.Error -> {
@@ -108,6 +114,7 @@ class ProductViewModel @Inject constructor(
         updateProductUseCase(sku, name, qty, price, unit, 1).onEach { result ->
             when (result) {
                 is Resource.Success -> {
+                    _state.value = ProductState(listProduct = result.data ?: emptyList())
                     _eventFlow.emit(
                         UIEvent.ShowToast(
                             result.message ?: "Success"
@@ -116,6 +123,10 @@ class ProductViewModel @Inject constructor(
                     _sharedFlow.emit(
                         NavEvent.Navigate(Screen.DashboardProductScreen.route)
                     )
+                    _refreshFlow.emit(
+                        SuccessUpdate.Refresh(Screen.DashboardProductScreen.route)
+                    )
+
                 }
 
                 is Resource.Error -> {
@@ -168,7 +179,7 @@ class ProductViewModel @Inject constructor(
         _searchQuery.value = query
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
-            delay(2000L)
+            delay(1500L)
             if (query == ""){
                 getProductList()
             } else {
@@ -208,5 +219,9 @@ class ProductViewModel @Inject constructor(
 
     sealed class NavEvent {
         data class Navigate(val route: String): NavEvent()
+    }
+
+    sealed class SuccessUpdate {
+        data class Refresh(val route: String): SuccessUpdate()
     }
 }
