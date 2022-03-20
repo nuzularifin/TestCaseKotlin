@@ -89,7 +89,7 @@ fun DashboardProductScreen(
                     onValueChange = viewModel::onSearch,
                     modifier = Modifier.fillMaxWidth(),
                     placeholder = {
-                        Text(text = "Search By SKU")
+                        Text(text = "Search by SKU")
                     })
                 Spacer(modifier = Modifier.height(16.dp))
                 LazyColumn(modifier = Modifier.fillMaxHeight()){

@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -27,19 +28,20 @@ fun ProductItem(
 ) {
     Row(
         modifier = Modifier
-        .padding(20.dp)
+        .padding(12.dp)
             .clickable {
                 onItemClick(product)
             }
         .fillMaxWidth()) {
         Column(
             modifier = Modifier
-                .padding(4.dp)
+                .padding()
                 .weight(0.9F)) {
             Text(
                 modifier = Modifier. align(alignment = Alignment.Start),
-                text = "${product.sku} ${product.name}",
+                text = "(${product.sku}) ${product.name}",
                 style = MaterialTheme.typography.body1,
+                fontWeight = FontWeight.Bold,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
