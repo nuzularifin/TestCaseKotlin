@@ -93,11 +93,12 @@ fun UpdateProductScreen(
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
-                verticalArrangement = Arrangement.Center,
+                verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .background(Color.White)
                     .fillMaxSize()
+                    .padding(12.dp)
             ) {
                 OutlinedTextField(
                     value = sku,
@@ -107,7 +108,8 @@ fun UpdateProductScreen(
                     onValueChange = {
                         sku = it
                     },
-                    maxLines = 1
+                    maxLines = 1,
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
@@ -117,7 +119,8 @@ fun UpdateProductScreen(
                     onValueChange = {
                         name = it
                     },
-                    maxLines = 1
+                    maxLines = 1,
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
@@ -128,7 +131,8 @@ fun UpdateProductScreen(
                         qty = it
                     },
                     maxLines = 1,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
@@ -139,7 +143,8 @@ fun UpdateProductScreen(
                         price = it
                     },
                     maxLines = 1,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
@@ -149,7 +154,8 @@ fun UpdateProductScreen(
                     onValueChange = {
                         unit = it
                     },
-                    maxLines = 1
+                    maxLines = 1,
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 if (state.isLoading){
@@ -157,9 +163,7 @@ fun UpdateProductScreen(
                 } else {
                     Button(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(4.dp)
-                            .padding(12.dp),
+                            .fillMaxWidth(),
                         onClick = {
                             if (sku.isNotBlank() && name.isNotBlank() && qty.isNotBlank() && price.isNotBlank() && unit.isNotBlank()) {
                                 viewModel.updateProduct(sku, name, Integer.parseInt(qty), Integer.parseInt(price), unit)
@@ -172,7 +176,7 @@ fun UpdateProductScreen(
                             }
                         }) {
                         Text(
-                            "Add Product", color = Color.White,
+                            "Update", color = Color.White,
                             modifier = Modifier.padding(horizontal = 12.dp)
                         )
                     }

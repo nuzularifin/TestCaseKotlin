@@ -91,6 +91,7 @@ fun RegisterScreen(
                 value = email,
                 placeholder = { Text(text = "user@email.com") },
                 label = { Text(text = "Email") },
+                maxLines = 1,
                 onValueChange = {
                     email = it
                 })
@@ -98,6 +99,7 @@ fun RegisterScreen(
             OutlinedTextField(
                 value = password,
                 placeholder = { Text(text = "******") },
+                maxLines = 1,
                 label = { Text(text = "Password") },
                 onValueChange = {
                     password = it

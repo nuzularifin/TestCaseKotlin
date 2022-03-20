@@ -80,6 +80,7 @@ fun LoginScreen(
                 value = email,
                 placeholder = { Text(text = "user@email.com") },
                 label = { Text(text = "Email") },
+                maxLines = 1,
                 onValueChange = {
                     email = it
                 })
@@ -91,6 +92,7 @@ fun LoginScreen(
                 onValueChange = {
                     password = it
                 },
+                maxLines = 1,
                 visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 trailingIcon = {
